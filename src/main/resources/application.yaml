@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: movieflix
+
+  datasource:
+    url: jdbc:postgresql://localhost:2222/movieflix
+#    docker run --name database -p 2222:5432 -e POSTGRES_PASSWORD=postgres -d postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  flyway:
+    enabled: true
