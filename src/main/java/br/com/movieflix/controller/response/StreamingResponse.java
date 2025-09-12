@@ -3,5 +3,5 @@ package br.com.movieflix.controller.response;
 import lombok.Builder;
 
 @Builder
-public record CategoryResponse(long id, String name) {
+public record StreamingResponse(Long id, String name) {
 }
