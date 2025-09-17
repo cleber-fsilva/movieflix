@@ -8,14 +8,14 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StreamingMapper {
 
-    public static Streaming toCategory(StreamingRequest streamingRequest) {
+    public static Streaming toStreaming(StreamingRequest streamingRequest) {
         return Streaming
                 .builder()
                 .name(streamingRequest.name())
                 .build();
     }
 
-    public static StreamingResponse toCategoryResponse(Streaming streaming) {
+    public static StreamingResponse toStreamingResponse(Streaming streaming) {
         return StreamingResponse
                 .builder()
                 .id(streaming.getId())

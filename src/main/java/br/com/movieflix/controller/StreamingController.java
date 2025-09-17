@@ -24,7 +24,7 @@ public class StreamingController {
         List<StreamingResponse> categories = categoryService.findAll()
                 .stream()
 //                .map(category -> CategoryMapper.toCategoryResponse(category))
-                .map(StreamingMapper::toCategoryResponse)
+                .map(StreamingMapper::toStreamingResponse)
                 .toList();
 
         return ResponseEntity.ok(categories);
@@ -32,15 +32,15 @@ public class StreamingController {
 
     @PostMapping
     public ResponseEntity<StreamingResponse> saveCategory(@RequestBody StreamingRequest request) {
-        Streaming newCategory = StreamingMapper.toCategory(request);
+        Streaming newCategory = StreamingMapper.toStreaming(request);
         Streaming savedCategory = categoryService.save(newCategory);
-        return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.toCategoryResponse(savedCategory));
+        return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.toStreamingResponse(savedCategory));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<StreamingResponse> getByCategoryId(@PathVariable Long id) {
         return categoryService.findById(id)
-                .map(category -> ResponseEntity.ok(StreamingMapper.toCategoryResponse(category)))
+                .map(category -> ResponseEntity.ok(StreamingMapper.toStreamingResponse(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
