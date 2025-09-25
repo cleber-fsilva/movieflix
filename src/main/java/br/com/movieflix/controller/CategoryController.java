@@ -1,9 +1,12 @@
 package br.com.movieflix.controller;
 
 import br.com.movieflix.controller.request.CategoryRequest;
+import br.com.movieflix.controller.request.StreamingRequest;
 import br.com.movieflix.controller.response.CategoryResponse;
+import br.com.movieflix.controller.response.StreamingResponse;
 import br.com.movieflix.entity.Category;
 import br.com.movieflix.mapper.CategoryMapper;
+import br.com.movieflix.mapper.StreamingMapper;
 import br.com.movieflix.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +45,13 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getByCategoryId(@PathVariable Long id) {
         return categoryService.findById(id)
+                .map(category -> ResponseEntity.ok(CategoryMapper.toCategoryResponse(category)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> finById(@PathVariable Long id, @Valid @RequestBody CategoryRequest request) {
+        return categoryService.update(id, CategoryMapper.toCategory(request))
                 .map(category -> ResponseEntity.ok(CategoryMapper.toCategoryResponse(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
